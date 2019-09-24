@@ -6,12 +6,5 @@ pipeline {
                 sh 'dotnet --version'
             }
         }
-
-        stage('Build') {
-            
-            steps {
-  
-                }
-            }
     }
 }
