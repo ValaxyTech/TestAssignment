@@ -11,7 +11,6 @@ pipeline {
             Exit 1
         }
         }
-        }
         stage('Build') {
             steps {
                 sh '''
