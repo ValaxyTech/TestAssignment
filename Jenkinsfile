@@ -5,13 +5,11 @@ pipeline {
           }*/
     stages {
         stage('Checking .NET core Version') {
-            steps {
-                if (env.BRANCH_NAME == 'release*'){
-                sh '''
-                    dotnet --version
-                    echo $BRANCH_NAME
-                   '''
-            }
+            if (env.BRANCH_NAME == 'release/1.0') {
+             sh 'dotnet --version'
+        } else {
+            Exit 1
+        }
         }
         }
         stage('Build') {
