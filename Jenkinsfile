@@ -6,5 +6,13 @@ pipeline {
                 sh 'dotnet --version'
             }
         }
+        stage('Build') {
+            steps {
+                sh '''
+                    dotnet build -r win-x64 -o windowsbuild/
+                    dotnet build -r linux-x64 -o ubuntubuild/
+                   '''
+            }
+        }
     }
 }
