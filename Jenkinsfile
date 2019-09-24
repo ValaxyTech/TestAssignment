@@ -1,8 +1,8 @@
 pipeline {
     agent { label 'master' }
-    environment {
+    /*environment {
         BRANCH_NAME = GIT_BRANCH
-          }
+          }*/
     stages {
         stage('Checking .NET core Version') {
             if (env.BRANCH_NAME == 'release*'){
