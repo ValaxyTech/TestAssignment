@@ -9,6 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
+                    cd HelloWorldSolution/
                     dotnet build -r win-x64 -o windowsbuild/
                     dotnet build -r linux-x64 -o ubuntubuild/
                    '''
