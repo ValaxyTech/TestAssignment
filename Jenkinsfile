@@ -1,8 +1,5 @@
 pipeline {
     agent { label 'master' }
-     environment {
-
-          }
     stages {
         stage('Checking .NET core Version') {
             steps {
