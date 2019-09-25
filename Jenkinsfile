@@ -36,7 +36,6 @@ pipeline {
                         echo $BRANCH_NAME
                         cd HelloWorldSolutions.Tests/
                         dotnet test HelloWorldSolutions.Integration.Tests.csproj
-                   fi
                    '''
             }
         }
