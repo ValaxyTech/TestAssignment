@@ -33,9 +33,11 @@ pipeline {
         stage('Triggering Integration Tests') {
             steps {
                 sh '''
-                        echo $BRANCH_NAME
+                   if [ ${BRANCH_NAME} = "master" ]
+                   then
                         cd HelloWorldSolutions.Tests/
                         dotnet test HelloWorldSolutions.Integration.Tests.csproj
+                   fi
                    '''
             }
         }
