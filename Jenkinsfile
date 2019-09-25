@@ -10,6 +10,7 @@ pipeline {
                     then
                         dotnet --version
                         echo $BRANCH_NAME
+                        echo $BUILD_NUMBER
                     fi
                    '''
             }
