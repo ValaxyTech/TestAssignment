@@ -64,12 +64,13 @@ pipeline {
   stage('Archive Building and output logs') {
             steps {
                 sh '''
+                   mkdir ArchiveBuilds/ && cd ArchiveBuilds/
                    curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
+                   cd ..
                    cd HelloWorldSolution/
                    zip windowsbuild.zip windowsbuild/
                    mv windowsbuild.zip windowsbuild${BUILD_NUMBER}.zip
-                   cd ..
-                   mkdir ArchiveBuilds/
+                   mv windowsbuild${BUILD_NUMBER}.zip ../ArchiveBuilds
                    cd ArchiveBuilds/
                    zip ../HelloWorldSolution/windowsbuild${BUILD_NUMBER}.zip ../build${BUILD_NUMBER}.log
                    '''
