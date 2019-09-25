@@ -1,13 +1,12 @@
 pipeline {
     agent { label 'master' }
-    environment {
-        BRANCH_REGEX = "^(release//*)"
-          }
+    /*environment {
+          }*/
     stages {
         stage('Checking .NET core Version') {
             steps {
                 sh '''
-                    if [ ${env.BRANCH_NAME} = "release/1.0" ]
+                    if [ ${BRANCH_NAME} == "release/1.0" ]
                     then
                         dotnet --version
                         echo $BRANCH_NAME
