@@ -66,8 +66,8 @@ pipeline {
                 sh '''
                    pwd
                    if [[ ! -e ArchiveBuilds/ ]]; then
-                        mkdir 
-                   fi ArchiveBuilds/
+                   mkdir ArchiveBuilds/
+                   fi 
                    cd ArchiveBuilds/
                    curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
                    cd ..
