@@ -12,7 +12,7 @@ pipeline {
                         echo $BRANCH_NAME
                         echo $BUILD_NUMBER
                         echo $BUILD_URL
-                        wget http://localhost:8080/job/LiveOptics/job/release%252F1.0/51/console >> output.log
+                        curl ${BUILD_URL}/consoleText >> output.log
                     fi
                    '''
             }
