@@ -61,9 +61,10 @@ pipeline {
     }
   }*/
 
-  stage('Archive Building and output logs') {
+  stage('Archiving Builds and build outputs') {
             steps {
                 sh '''
+                   pwd
                    mkdir ArchiveBuilds/ && cd ArchiveBuilds/
                    curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
                    cd ..
