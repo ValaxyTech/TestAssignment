@@ -13,6 +13,7 @@ pipeline {
                         echo $BUILD_NUMBER
                         echo $BUILD_URL
                         curl ${BUILD_URL}/consoleText >> output.log
+                        pwd
                     fi
                    '''
             }
