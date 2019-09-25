@@ -6,7 +6,7 @@ pipeline {
     //#################################################################//
     //This jenkins file should be run on jenkins ubuntu agent as rquired.
     //#################################################################//
-    agent { label 'ubuntu' }
+    agent { label 'master' }
     stages {
 
         //#########################//
