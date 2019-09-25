@@ -6,7 +6,7 @@ pipeline {
         stage('Checking .NET core Version') {
             steps {
                 sh '''
-                    if [ ${BRANCH_NAME} == "release/1.0" ]
+                    if [ ${BRANCH_NAME} = "release/1.0" ]
                     then
                         dotnet --version
                         echo $BRANCH_NAME
@@ -17,9 +17,12 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
+                if [ ${BRANCH_NAME} = "release/1.0" ]
+                then
                     cd HelloWorldSolution/
                     dotnet build -r win-x64 -o windowsbuild/
                     dotnet build -r linux-x64 -o ubuntubuild/
+                fi
                    '''
             }
         }
@@ -27,7 +30,10 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 sh '''
+                if [ ${BRANCH_NAME} = "release/1.0" ]
+                then
                    dotnet test
+                fi
                    '''
             }
         }
