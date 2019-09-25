@@ -65,6 +65,7 @@ pipeline {
             steps {
                 sh '''
                    curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
+                   pwd
                    zip windowsbuild.zip windowsbuild/
                    mv windowsbuild.zip windowsbuild${BUILD_NUMBER}.zip
                    zip windowsbuild${BUILD_NUMBER}.zip build${BUILD_NUMBER}.log
