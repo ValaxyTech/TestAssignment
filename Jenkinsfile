@@ -71,14 +71,14 @@ pipeline {
         //Scanning and linting with SonarQube.
         //Note: SonarQube container sholud be a windows box in this case.
         //#############################################################//
-        stage('Linting with SonarQube') {
+        /*stage('Linting with SonarQube') {
                 def sqScannerMsBuildHome = tool 'Scanner for MSBuild 4.6'
                 withSonarQubeEnv('SonarQube Server') {
                 bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:myKey"
                 bat 'MSBuild.exe /t:Rebuild'
                 bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
         }
-    }
+    }*/
   //########################################################################################//
   // "Archived Version of Build artifacts and Build log file compressed in one archive file".
   //########################################################################################//
