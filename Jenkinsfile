@@ -82,7 +82,7 @@ pipeline {
   //########################################################################################//
   // "Archived Version of Build artifacts and Build log file compressed in one archive file".
   //########################################################################################//
-  stage('Archiving Builds and build outputs') {
+  stage('Archiving Builds and build logs') {
             steps {
                 sh '''
                    pwd
