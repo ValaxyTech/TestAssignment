@@ -1,35 +1,46 @@
+//#######################################################################################//
+//Jenkinsfile for Building , testing, integration test, sonar linting and archiving builds.
+//#######################################################################################//
 pipeline {
-    agent { label 'master' }
-    /*environment {
-          }*/
+
+    //#################################################################//
+    //This jenkins file should be run on jenkins ubuntu agent as rquired.
+    //#################################################################//
+    agent { label 'ubuntu' }
     stages {
+
+        //#########################//
+        //Checking .NETCORE version.
+        //#########################//
         stage('Checking .NET core Version') {
             steps {
                 sh '''
-                    if [ ${BRANCH_NAME} = "release/1.0" ]
-                    then
                         dotnet --version
                         echo $BRANCH_NAME
                         echo $BUILD_NUMBER
                         echo $BUILD_URL
-                        pwd
-                    fi
                    '''
             }
         }
+
+        //################//
+        //Building the code.
+        //################//
         stage('Build') {
             steps {
                 sh '''
                 if [ ${BRANCH_NAME} = "release/1.0" ]
                 then
                     cd HelloWorldSolution/
-                    dotnet build -r win-x64 -o windowsbuild/
                     dotnet build -r linux-x64 -o ubuntubuild/
                 fi
                    '''
             }
         }
 
+        //############//
+        //Unit Testing.
+        //###########//
         stage('Unit Tests') {
             steps {
                 sh '''
@@ -41,6 +52,9 @@ pipeline {
             }
         }
         
+        //###################//
+        //Integration Testing.
+        //###################//
         stage('Triggering Integration Tests') {
             steps {
                 sh '''
@@ -52,15 +66,22 @@ pipeline {
                    '''
             }
         }
-       /*stage('Linting with SonarQube') {
-            def sqScannerMsBuildHome = tool 'Scanner for MSBuild 4.6'
-            withSonarQubeEnv('SonarQube Server') {
-            bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:myKey"
-            bat 'MSBuild.exe /t:Rebuild'
-            bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
-    }
-  }*/
 
+        //#############################################################//
+        //Scanning and linting with SonarQube.
+        //Note: SonarQube container sholud be a windows box in this case.
+        //#############################################################//
+        stage('Linting with SonarQube') {
+                def sqScannerMsBuildHome = tool 'Scanner for MSBuild 4.6'
+                withSonarQubeEnv('SonarQube Server') {
+                bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:myKey"
+                bat 'MSBuild.exe /t:Rebuild'
+                bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+        }
+    }
+  //########################################################################################//
+  // "Archived Version of Build artifacts and Build log file compressed in one archive file".
+  //########################################################################################//
   stage('Archiving Builds and build outputs') {
             steps {
                 sh '''
@@ -72,12 +93,13 @@ pipeline {
                    curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
                    cd ..
                    cd HelloWorldSolution/
-                   zip windowsbuild.zip windowsbuild/
-                   mv windowsbuild.zip windowsbuild${BUILD_NUMBER}.zip
-                   mv windowsbuild${BUILD_NUMBER}.zip ../ArchiveBuilds
+                   zip ubuntubuild.zip ubuntubuild/
+                   mv ubuntubuild.zip  ubuntubuild${BUILD_NUMBER}.zip
+                   mv ubuntubuild${BUILD_NUMBER}.zip ../ArchiveBuilds
                    cd ..
                    cd ArchiveBuilds/
-                   zip ../HelloWorldSolution/windowsbuild${BUILD_NUMBER}.zip build${BUILD_NUMBER}.log
+                   zip ../HelloWorldSolution/ubuntubuild${BUILD_NUMBER}.zip build${BUILD_NUMBER}.log
+
                    '''
             }
         }
