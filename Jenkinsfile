@@ -65,7 +65,8 @@ pipeline {
             steps {
                 sh '''
                    pwd
-                   mkdir ArchiveBuilds/ && cd ArchiveBuilds/
+                   mkdir ArchiveBuilds/
+                   cd ArchiveBuilds/
                    curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
                    cd ..
                    cd HelloWorldSolution/
