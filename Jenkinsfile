@@ -29,6 +29,15 @@ pipeline {
                    '''
             }
         }
+        
+        stage('Triggering Integration Tests') {
+            steps {
+                sh '''
+                   cd HelloWorldSolutions.Tests/
+                   dotnet test HelloWorldSolutions.Integration.Tests.csproj
+                   '''
+            }
+        }
        /*stage('Linting with SonarQube') {
             def sqScannerMsBuildHome = tool 'Scanner for MSBuild 4.6'
             withSonarQubeEnv('SonarQube Server') {
