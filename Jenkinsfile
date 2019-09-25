@@ -12,7 +12,6 @@ pipeline {
                         echo $BRANCH_NAME
                         echo $BUILD_NUMBER
                         echo $BUILD_URL
-                        curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
                         pwd
                     fi
                    '''
@@ -61,5 +60,15 @@ pipeline {
             bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
     }
   }*/
+
+  stage('Archive Building and output logs') {
+            steps {
+                sh '''
+                   curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
+                   zip windowsbuild${BUILD_NUMBER}.zip windowsbuild/
+                   zip windowsbuild${BUILD_NUMBER}.zip build${BUILD_NUMBER}.log
+                   '''
+            }
+        }
     }
 }
