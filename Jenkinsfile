@@ -7,7 +7,8 @@ pipeline {
         stage('Checking .NET core Version') {
             steps {
                 sh '''
-                    if [ ${BRANCH_NAME} = "^release*" ]
+                    BRANCH_REGEX="^(release//*)"
+                    if [ ${BRANCH_NAME} == $BRANCH_REGEX ]
                     then
                         dotnet --version
                         echo $BRANCH_NAME
