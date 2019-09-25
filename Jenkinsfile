@@ -90,7 +90,7 @@ pipeline {
                    mkdir ArchiveBuilds/
                    fi 
                    cd ArchiveBuilds/
-                   curl -u jenkins:jenkins http://${BUILD_URL}/$BUILD_NUMBER/consoleText >> build${BUILD_NUMBER}.log
+                   curl -u jenkins:jenkins http://${BUILD_URL}/consoleText >> build${BUILD_NUMBER}.log
                    cd ..
                    cd HelloWorldSolution/
                    zip ubuntubuild.zip ubuntubuild/
