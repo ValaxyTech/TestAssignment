@@ -75,6 +75,7 @@ pipeline {
                    zip windowsbuild.zip windowsbuild/
                    mv windowsbuild.zip windowsbuild${BUILD_NUMBER}.zip
                    mv windowsbuild${BUILD_NUMBER}.zip ../ArchiveBuilds
+                   cd ..
                    cd ArchiveBuilds/
                    zip ../HelloWorldSolution/windowsbuild${BUILD_NUMBER}.zip ../build${BUILD_NUMBER}.log
                    '''
