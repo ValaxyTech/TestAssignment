@@ -12,7 +12,7 @@ pipeline {
                         echo $BRANCH_NAME
                         echo $BUILD_NUMBER
                         echo $BUILD_URL
-                        curl ${BUILD_URL}/consoleText >> output.log
+                        curl -u jenkins:jenkins http://localhost:8080/job/LiveOptics/job/release%252F1.0/54/consoleText >> build${BUILD_NUMBER}.log
                         pwd
                     fi
                    '''
